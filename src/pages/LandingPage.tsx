@@ -2,6 +2,7 @@ import { Brand } from "@/components/Brand"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import banner from "@/assets/banner1.png"
+import { FaqComponent } from "@/components/FaqComponent"
 
 export const LandingPage = ()=>{
     return <div className="flex flex-col items-center">
@@ -17,6 +18,10 @@ export const LandingPage = ()=>{
             <div className="flex justify-center">
                 <img src={banner} className="h-72 w-4/5 my-10 px-10"/>
             </div>
+        </div>
+        <div className="w-4/5 py-10">
+            <p className="font-bold text-xl mb-3">FREQUENTLY ASKED QUESTIONS</p>
+            <FaqComponent/>
         </div>
     </div>
 }
