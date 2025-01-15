@@ -7,7 +7,7 @@ import { LinkIcon, LogOut, LogOutIcon, User } from "lucide-react";
 
 export const Header = ()=>{
     const navigate = useNavigate();
-    const user = true;
+    const user = false;
 
     return <div className="py-4 w-[screen] flex justify-between items-center mx-5">
         <Link to="/"><img src={logo} className="h-16" alt="Trimly Logo"/></Link>
