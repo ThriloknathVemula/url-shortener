@@ -3,7 +3,7 @@ import logo from "@/assets/logo.png"
 import { Button } from "./ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { LinkIcon, LogOut, LogOutIcon, User } from "lucide-react";
+import { LinkIcon, LogOutIcon, User } from "lucide-react";
 
 export const Header = ()=>{
     const navigate = useNavigate();
