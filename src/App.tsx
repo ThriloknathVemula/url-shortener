@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard'
 import { Auth } from './pages/Auth'
 import { Link } from './pages/Link'
 import { RedirectLink } from './pages/RedirectLink'
+import { UserProvider } from './context'
 
 const router = createBrowserRouter([{
   element: <AppLayout/>,
@@ -34,7 +35,7 @@ const router = createBrowserRouter([{
 }])
 
 function App() {
-  return <RouterProvider router={router}/>
+  return <UserProvider><RouterProvider router={router}/></UserProvider>
 }
 
 export default App
