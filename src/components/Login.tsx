@@ -10,13 +10,30 @@ import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import {PulseLoader} from "react-spinners"
 import { Error } from "./Error"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as Yup from 'yup'
+import { useFetch } from "@/hooks/useFetch"
+import { login } from "@/utils/auth"
+import { useNavigate, useSearchParams } from "react-router-dom"
+
+const initialState = {email:"",password:""};
   
 
 export const Login = ()=>{
-    const [credentials,setCredentials] = useState({email:"",password:""});
-    const [errors,setErrors] = useState([]);
+    const [credentials,setCredentials] = useState(initialState);
+    const [errors,setErrors] = useState(initialState);
+
+    const {data,error,loading,fn: fnLogin} = useFetch(login,credentials);
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const longLink =searchParams.get("createNew")
+
+    useEffect(()=>{
+      if(error===null && data){
+        console.log(data);
+        navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`)
+      }
+    },[data,error])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         setCredentials((prev)=>({
@@ -26,7 +43,7 @@ export const Login = ()=>{
     }
 
     const handleLogin = async()=>{
-        setErrors([])
+        setErrors(initialState)
         try{
             const schema = Yup.object().shape({
                 email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -34,6 +51,9 @@ export const Login = ()=>{
             })
 
             await schema.validate(credentials, {abortEarly: false})
+
+            //api call
+            await fnLogin();
         }catch(error:any){
             const newErrors:any = {};
 
@@ -49,7 +69,7 @@ export const Login = ()=>{
     <CardHeader>
       <CardTitle className="text-xl">Login</CardTitle>
       <CardDescription>to your account if you already have one</CardDescription>
-      <Error message="check error"/>
+      {error && <Error message={error.message}/>}
     </CardHeader>
     
     <CardContent className="space-y-2">
@@ -60,7 +80,7 @@ export const Login = ()=>{
         placeholder="Enter your Email"
         onChange={handleInputChange}
         />
-        {errors.email && <Error message={errors.email}/>}
+        {errors.email !== "" && <Error message={errors.email}/>}
       </div>
       <div className="space-y-1">
         <Input 
@@ -68,12 +88,12 @@ export const Login = ()=>{
         name="password" 
         placeholder="Enter your Password"
         onChange={handleInputChange}/>
-        {errors.password && <Error message={errors.password}/>}
+        {errors.password !== "" && <Error message={errors.password}/>}
       </div>
     </CardContent>
     <CardFooter className="flex justify-center">
       <Button onClick={handleLogin}>
-        {true ? <PulseLoader size={10}/> : "Login"}
+        {loading ? <PulseLoader size={10}/> : "Login"}
       </Button>
     </CardFooter>
   </Card>

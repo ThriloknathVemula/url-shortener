@@ -8,5 +8,5 @@ export const login = async({email,password}: {email:string,password:string})=>{
 
     if(error) throw new Error(error.message);
 
-    return data
+    return data;
 }
