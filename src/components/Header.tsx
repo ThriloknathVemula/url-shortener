@@ -7,19 +7,20 @@ import { LinkIcon, LogOutIcon, User } from "lucide-react";
 import { urlState } from "@/context";
 import { useFetch } from "@/hooks/useFetch";
 import { logout } from "@/utils/auth";
+import { BarLoader } from "react-spinners";
 
 export const Header = ()=>{
     const navigate = useNavigate();
     const {user,fetchUser} = urlState();
 
-    const { fn: fnLogout} = useFetch(logout);
+    const {loading, fn: fnLogout} = useFetch(logout);
 
     const handleLogout = ()=>{
       fnLogout().then(()=>navigate('/'))
       fetchUser();
     }
 
-    return <div className="py-4 w-[screen] flex justify-between items-center mx-5">
+    return <> <div className="py-4 w-[screen] flex justify-between items-center mx-5">
         <Link to="/"><img src={logo} className="h-16" alt="Trimly Logo"/></Link>
         {!user ? <Button className="ml-auto" onClick={()=>navigate('/auth')}>Login</Button>
         : <DropdownMenu>
@@ -48,4 +49,6 @@ export const Header = ()=>{
       </DropdownMenu>
       }
     </div>
+    {loading && <BarLoader className="mb-4" width={"100%"} color= "rgb(226 232 240 / var(--tw-text-opacity, 1))"/>}
+    </>
 }
