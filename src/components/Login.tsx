@@ -15,6 +15,7 @@ import * as Yup from 'yup'
 import { useFetch } from "@/hooks/useFetch"
 import { login } from "@/utils/auth"
 import { useNavigate, useSearchParams } from "react-router-dom"
+import { urlState } from "@/context"
 
 const initialState = {email:"",password:""};
   
@@ -26,12 +27,15 @@ export const Login = ()=>{
     const {data,error,loading,fn: fnLogin} = useFetch(login,credentials);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const longLink =searchParams.get("createNew")
+    const longLink =searchParams.get("createNew");
+
+    const {fetchUser} = urlState();
 
     useEffect(()=>{
       if(error===null && data){
         console.log(data);
         navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`)
+        fetchUser();
       }
     },[data,error])
 
@@ -76,7 +80,7 @@ export const Login = ()=>{
       <div className="space-y-1">
         <Input 
         type="email" 
-        name="email" 
+        name="email"
         placeholder="Enter your Email"
         onChange={handleInputChange}
         />

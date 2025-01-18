@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const useFetch = (callbackFn ,options={})=>{
+export const useFetch = (callbackFn:any,options={})=>{
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState(null);
     const [data,setData] = useState(null);

@@ -7,6 +7,7 @@ import { Auth } from './pages/Auth'
 import { Link } from './pages/Link'
 import { RedirectLink } from './pages/RedirectLink'
 import { UserProvider } from './context'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 const router = createBrowserRouter([{
   element: <AppLayout/>,
@@ -17,7 +18,7 @@ const router = createBrowserRouter([{
     },
     {
       path:'/dashboard',
-      element: <Dashboard/>
+      element: <ProtectedRoute><Dashboard/></ProtectedRoute>
     },
     {
       path:'/auth',
@@ -25,7 +26,7 @@ const router = createBrowserRouter([{
     },
     {
       path:'/link/:id',
-      element: <Link/>
+      element: <ProtectedRoute><Link/></ProtectedRoute>
     },
     {
       path: '/:id',
