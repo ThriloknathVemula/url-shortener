@@ -12,7 +12,7 @@ export const ProtectedRoute = ({children}:{children:ReactNode})=>{
         if(!isAuthenticated && loading==false) navigate('/auth')
     },[isAuthenticated,loading]);
 
-    if(loading) return <ScaleLoader className="text-center" color= "rgb(226 232 240 / var(--tw-text-opacity, 1))"/>
+    if(loading) return <ScaleLoader className="text-center mt-44" color= "rgb(226 232 240 / var(--tw-text-opacity, 1))"/>
 
     if(isAuthenticated) return children;
 }

@@ -49,6 +49,6 @@ export const Header = ()=>{
       </DropdownMenu>
       }
     </div>
-    {loading && <BarLoader className="mb-4" width={"100%"} color= "rgb(226 232 240 / var(--tw-text-opacity, 1))"/>}
+    {loading && <BarLoader className="mb-4" width={"100%"} color="white"/>}
     </>
 }

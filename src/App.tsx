@@ -8,6 +8,7 @@ import { Link } from './pages/Link'
 import { RedirectLink } from './pages/RedirectLink'
 import { UserProvider } from './context'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { User } from './pages/User'
 
 const router = createBrowserRouter([{
   element: <AppLayout/>,
@@ -15,6 +16,10 @@ const router = createBrowserRouter([{
     {
       path:'/',
       element: <LandingPage/>
+    },
+    {
+      path:'/user',
+      element: <User/>
     },
     {
       path:'/dashboard',
