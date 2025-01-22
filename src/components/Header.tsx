@@ -31,12 +31,13 @@ export const Header = ()=>{
             </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{user.user_metadata.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <User/>
-            Profile
+          <Link to="/user">
+          <DropdownMenuItem> 
+            <User/> Profile
           </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             <LinkIcon/>
             Links
