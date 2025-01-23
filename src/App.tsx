@@ -14,27 +14,27 @@ const router = createBrowserRouter([{
   element: <AppLayout/>,
   children: [
     {
-      path:'/',
+      path:"/",
       element: <LandingPage/>
     },
     {
-      path:'/user',
-      element: <User/>
+      path:"/user",
+      element: <ProtectedRoute><User/></ProtectedRoute>
     },
     {
-      path:'/dashboard',
+      path:"/dashboard",
       element: <ProtectedRoute><Dashboard/></ProtectedRoute>
     },
     {
-      path:'/auth',
+      path:"/auth",
       element: <Auth/>
     },
     {
-      path:'/link/:id',
+      path:"/link/:id",
       element: <ProtectedRoute><Link/></ProtectedRoute>
     },
     {
-      path: '/:id',
+      path: "/:id",
       element: <RedirectLink/>
     }
   ]
