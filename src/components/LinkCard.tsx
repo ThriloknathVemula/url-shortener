@@ -1,4 +1,4 @@
-import { Copy, DeleteIcon, Download } from "lucide-react";
+import { Copy, DeleteIcon, Download, Trash } from "lucide-react";
 import { Button } from "./ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -30,7 +30,7 @@ export const LinkCard = ({urlDetails, fetchUrls}:any)=>{
                 <Copy/>
             </Button>
             <Button variant="ghost"><Download/></Button>
-            <Button variant="ghost"><DeleteIcon/></Button>
+            <Button variant="ghost"><Trash/></Button>
         </div>
     </div>
 }
