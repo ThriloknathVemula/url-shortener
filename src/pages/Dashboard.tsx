@@ -1,5 +1,7 @@
+import { CreateLink } from "@/components/CreateLink";
 import { Error } from "@/components/Error";
 import { LinkCard } from "@/components/LinkCard";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -38,13 +40,11 @@ export const Dashboard = ()=>{
         }
     },[urls])
 
-
     return <div className="p-10">
-        <h1 className="text-2xl md:text-4xl font-bold mb-5">Dashboard</h1>
         {(loadingClicks || loadingUrls) ? 
         <ScaleLoader className="text-center mt-44" color= "rgb(226 232 240 / var(--tw-text-opacity, 1))"/>
         :
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-3">
             <Card>
                 <CardHeader>
                     <CardTitle className="text-xl md:text-4xl font-bold">Links</CardTitle>
@@ -63,7 +63,11 @@ export const Dashboard = ()=>{
                 </CardContent>
             </Card>
         </div>}
-        <div className="mt-4 flex items-center relative">
+        <div className="flex justify-between items-center mt-5">
+            <h1 className="text-2xl md:text-4xl font-bold mb-5">My Links</h1>
+            <CreateLink/>
+        </div>
+        <div className="mt-3 flex items-center relative">
             <Input type="search" 
              value={searchQuery}
              onChange={e=>setSearchQuery(e.target.value)}
