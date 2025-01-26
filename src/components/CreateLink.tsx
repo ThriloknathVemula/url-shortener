@@ -8,23 +8,22 @@ import {
   } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { urlState } from "@/context"
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { createUrl } from "@/utils/urls"
 import * as Yup from 'yup'
 import { Error } from "./Error"
 import { PulseLoader } from "react-spinners"
 import { useFetch } from "@/hooks/useFetch"
   
-const errorInitialState = {title:"",longUrl:"",customUrl:""}
+const initialState = {title:"",longUrl:"",customUrl:""}
 export const CreateLink = ()=>{
     const {user} = urlState();
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
     const longLink = searchParams.get("createNew");
-
-    const {data, error, loading, fn:fnCreateUrl} = useFetch(createUrl)
 
     const [formData, setFormData] = useState({
         title:"",
@@ -32,7 +31,15 @@ export const CreateLink = ()=>{
         longUrl:longLink ? longLink : ""
     });
 
-    const [errors, setErrors] = useState(errorInitialState);
+    const {data, error, loading, fn:fnCreateUrl} = useFetch(createUrl, {...formData, userId: user.id});
+
+    const [errors, setErrors] = useState(initialState);
+
+    useEffect(()=>{
+        if(error === null && data){
+            navigate(`/link/${data[0].id}`)
+        }
+    },[data,error])
 
     const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         setFormData((prev)=>({
@@ -44,7 +51,7 @@ export const CreateLink = ()=>{
 
 
     const onClickCreateLink = async()=>{
-        setErrors(errorInitialState);
+        setErrors(initialState);
 
         try{
             const schema = Yup.object().shape({
@@ -54,8 +61,8 @@ export const CreateLink = ()=>{
             });
 
             await schema.validate(formData, {abortEarly: false});
-
-            fnCreateUrl(formData, user.id);
+            await fnCreateUrl();
+            setFormData(initialState);
         }catch(error:any){
             const newErrors:any = {};
 

@@ -27,11 +27,11 @@ export const Header = ()=>{
         <DropdownMenuTrigger>
             <Avatar className="outline-none w-10 rounded-full overflow-hidden">
                 <AvatarImage className="object-contain" src={user.user_metadata.profile_pic} />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>{user.user_metadata.name.toUpperCase()}</AvatarFallback>
             </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>{user.user_metadata.name}</DropdownMenuLabel>
+          <DropdownMenuLabel>{user.user_metadata.name[0].toUpperCase()+user.user_metadata.name.slice(1)}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <Link to="/user">
           <DropdownMenuItem> 
