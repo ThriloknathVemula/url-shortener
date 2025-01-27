@@ -45,3 +45,17 @@ export const deleteUrl = async(urlId: any)=>{
 
     return data;
 }
+
+export const getLongUrl = async(shortLink:string)=>{
+    const {data, error} = await supabase.
+                        from("urls")
+                        .select("*")
+                        .or(`short_url.eq.${shortLink}, custom_url.eq.${shortLink}`)
+                        .single();
+    if(error){
+        console.error(error.message);
+        throw new Error("Unable to load the URL");
+    }
+
+    return data;
+}

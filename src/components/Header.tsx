@@ -38,10 +38,12 @@ export const Header = ()=>{
             <User/> Profile
           </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem>
-            <LinkIcon/>
-            Links
-          </DropdownMenuItem>
+          <Link to="/dashboard">
+            <DropdownMenuItem>
+              <LinkIcon/>
+              Links
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem onClick={handleLogout} className="text-red-500">
             <LogOutIcon/>
             Logout
