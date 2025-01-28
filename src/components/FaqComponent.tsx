@@ -27,8 +27,7 @@ export const FaqComponent = ()=>{
         <AccordionItem value="item-3">
         <AccordionTrigger>What analytics are available for my shortened URLs?</AccordionTrigger>
         <AccordionContent>
-            You can view the number of clicks, geolocation data of the clicks
-            and device types (mobile/desktop) for each of your shortened URLs.
+            You can view the number of clicks and geolocation data of the clicks for each of your shortened URLs.
         </AccordionContent>
         </AccordionItem>
     </Accordion>

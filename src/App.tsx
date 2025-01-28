@@ -9,6 +9,7 @@ import { RedirectLink } from './pages/RedirectLink'
 import { UserProvider } from './context'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { User } from './pages/User'
+import { NotFound } from './pages/NotFound'
 
 const router = createBrowserRouter([{
   element: <AppLayout/>,
@@ -36,6 +37,10 @@ const router = createBrowserRouter([{
     {
       path: "/:id",
       element: <RedirectLink/>
+    },
+    {
+      path:'*',
+      element: <NotFound/>
     }
   ]
 }])

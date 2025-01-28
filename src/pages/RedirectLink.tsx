@@ -23,5 +23,11 @@ export const RedirectLink = ()=>{
         Redirecting...    
     </div>}
 
+    if(!loading && data === null){
+        return <div>
+            Error redirecting.....
+        </div>
+    }
+
     return null;
 }
