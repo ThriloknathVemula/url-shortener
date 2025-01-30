@@ -59,3 +59,13 @@ export const getLongUrl = async(shortLink:string)=>{
 
     return data;
 }
+
+export const getUrl = async({id,userId}:{id:any,userId:any})=>{
+    const {data, error} = await supabase.from("urls").select("*").eq("id",id).eq("user_id",userId).single()
+
+    if(error){
+        throw new Error("Short url not found");
+    }
+
+    return data;
+}

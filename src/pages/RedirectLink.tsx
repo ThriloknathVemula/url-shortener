@@ -1,4 +1,5 @@
 import { useFetch } from "@/hooks/useFetch";
+import { storeClicks } from "@/utils/clicks";
 import { getLongUrl } from "@/utils/urls";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom"
@@ -12,8 +13,11 @@ export const RedirectLink = ()=>{
         fnGetLongUrl();
     },[])
 
+    const {fn:fnStoreClick} = useFetch(storeClicks, data?.id);
+
     useEffect(()=>{
         if(!loading && data){
+            fnStoreClick();
             window.location.href = data.original_url;
         }
     },[loading,data])

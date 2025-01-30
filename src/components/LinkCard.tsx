@@ -1,12 +1,14 @@
-import { Copy, DeleteIcon, Download, Trash } from "lucide-react";
+import { Copy, Trash } from "lucide-react";
 import { Button } from "./ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { deleteUrl } from "@/utils/urls";
 import { BeatLoader } from "react-spinners";
 import { useFetch } from "@/hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 export const LinkCard = ({urlDetails, fetchUrls}:any)=>{
-    const {qr,title,original_url,short_url,custom_url,created_at,id} = urlDetails;
+    const {title,original_url,short_url,custom_url,created_at,id} = urlDetails;
+    const navigate = useNavigate();
     const {toast} = useToast();
 
     const onClickCopy = ()=>{
@@ -24,12 +26,7 @@ export const LinkCard = ({urlDetails, fetchUrls}:any)=>{
         fetchUrls();
     }
 
-    return <div className="flex flex-row items-center border-solid border-gray-800 p-2 md:p-5 rounded-md border-2 mt-4 justify-between">
-        {/* <div>
-            {qr !== null ? 
-            <img  src={qr} className="h-32 object-contain ring ring-blue-500 self-start" alt="qr-image"/> 
-            : <p>qr not available</p>}
-        </div> */}
+    return <div onClick={()=>navigate(`/link/${id}`)} className="flex flex-row items-center border-solid border-gray-800 p-2 md:p-5 rounded-md border-2 mt-4 justify-between cursor-pointer">
         <div className="flex flex-col items-start gap-1">
             <h1 className="font-bold md:text-3xl text-xl">{title}</h1>
             <p className="text-lg md:text-2xl font-semibold text-blue-600">https://trimly/{custom_url !== null ? custom_url : short_url}</p>
@@ -40,7 +37,6 @@ export const LinkCard = ({urlDetails, fetchUrls}:any)=>{
             <Button variant="ghost" onClick={onClickCopy}>
                 <Copy/>
             </Button>
-            {/* <Button variant="ghost"><Download/></Button> */}
             <Button variant="ghost" onClick={onClickDelete}>
                 {loadingDelete ? <BeatLoader size={2}/> :<Trash/>}
             </Button>
