@@ -26,6 +26,7 @@ export const storeClicks = async(urlId:any)=>{
 }
 
 export const getClicksForSingleUrl = async(urlId:any)=>{
+    console.log(urlId)
     const {data,error} = await supabase.from("clicks").select("*").eq("url_id",urlId);
 
     if(error){
