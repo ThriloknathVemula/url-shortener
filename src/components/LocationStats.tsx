@@ -3,27 +3,33 @@ import {
     Line,
     XAxis,
     YAxis,
-    CartesianGrid,
     Tooltip,
     Legend,
     ResponsiveContainer,
     LabelList,
   } from "recharts";
+
+interface clicksType {
+  id?:string | number, 
+  country: string, 
+  city: string, 
+  url_id?: string | number
+}
   
 
-export default function LocationStats({clicks}) {
+export default function LocationStats({clicks}:{clicks:clicksType[]}) {
     if(clicks === null || clicks.length === 0){
         return <div className="flex justify-center items-center border-2 border-solid rounded-md p-5 py-10">No Location Stats available yet
         </div>
     }
 
-    const cityCount = clicks.reduce((acc,item)=>{
+    const cityCount = clicks.reduce((acc:Record<string, number>,item:clicksType)=>{
         if(acc[item.city]){
             acc[item.city] += 1;
         }else acc[item.city] = 1;
 
         return acc;
-    },{})
+    },{} as Record<string, number>)
 
     const cities = Object.entries(cityCount).map(([city,count]) => ({
         city,

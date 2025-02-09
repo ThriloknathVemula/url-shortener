@@ -1,8 +1,12 @@
 import { useState } from "react"
 
+interface errorType {
+    message:string
+}
+
 export const useFetch = (callbackFn:any,options={})=>{
     const [loading,setLoading] = useState(false);
-    const [error,setError] = useState(null);
+    const [error,setError] = useState<errorType | null>(null);
     const [data,setData] = useState(null);
 
     const fn = async(...args: any[])=>{

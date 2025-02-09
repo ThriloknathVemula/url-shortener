@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { urlState } from "@/context";
 import { toast } from "@/hooks/use-toast";
 import { useFetch } from "@/hooks/useFetch";
+import { urlType } from "@/types/types";
 import { getClicksForSingleUrl } from "@/utils/clicks";
 import { deleteUrl, getUrl } from "@/utils/urls";
 import { Copy, Trash } from "lucide-react";
@@ -15,7 +16,7 @@ export const Link = ()=>{
     const {id} = useParams();
     const {user} = urlState();
 
-    const {fn:fnGetUrl, loading, data:url, error} = useFetch(getUrl,{id,userId: user?.id});
+    const {fn:fnGetUrl, loading, data:url}:{fn:()=>{}, loading:boolean, data:urlType} = useFetch(getUrl,{id,userId: user?.id});
     const {fn:fnGetClicks, loading:loadingClicks, data:clicks} = useFetch(getClicksForSingleUrl, id);
 
     useEffect(()=>{

@@ -1,10 +1,26 @@
-import { createContext, useContext, useEffect } from "react"
+import { createContext, ReactNode, useContext, useEffect } from "react"
 import { useFetch } from "./hooks/useFetch";
 import { getCurrentUser } from "./utils/auth";
 
-const userContext = createContext();
+interface userObjectType{
+    role?:string,
+    id?: string | number,
+    user_metadata: {
+        profile_pic: string,
+        name:string
+    }
+}
 
-export const UserProvider = ({children}:any)=>{
+interface userContextType {
+    user: userObjectType,
+    fetchUser:()=>void,
+    isAuthenticated: boolean,
+    loading: boolean
+}
+
+const userContext = createContext<userContextType>({user:{},fetchUser:()=>{},isAuthenticated:false,loading:true});
+
+export const UserProvider = ({children}:{children:ReactNode})=>{
     const {data:user, loading, fn:fetchUser} = useFetch(getCurrentUser)
 
     const isAuthenticated = user?.role === "authenticated";
