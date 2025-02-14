@@ -33,7 +33,6 @@ export const Login = ()=>{
 
     useEffect(()=>{
       if(error===null && data){
-        console.log(data);
         navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`)
         getUser();
       }

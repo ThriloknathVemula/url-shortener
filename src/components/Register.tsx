@@ -31,7 +31,6 @@ export const Register = ()=>{
 
     useEffect(()=>{
         if(data && error === null){
-            console.log(data);
             navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`)
             getUser();
         }
