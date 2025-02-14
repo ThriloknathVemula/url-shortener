@@ -5,10 +5,10 @@ Trimly is a url shortener that converts long URLs into shorter, more manageable 
 ## Features:
 Short URL Generation: Converts long URLs into short, unique links.
 
-Custom Short Links (Optional): Allows users to create personalized short URLs.
+Custom Short Links: Allows users to create personalized short URLs.
 
 Redirection: When users visit the short link, they are redirected to the original URL.
 
-Click Tracking (Optional): Tracks the number of times a short URL has been accessed.
+Click Tracking: Tracks the number of times a short URL has been accessed.
 
-Admin Dashboard (Optional): Provides analytics and management for generated URLs.
+Admin Dashboard: Provides analytics and management for generated URLs.
