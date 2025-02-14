@@ -10,17 +10,19 @@ export const getClicksForUrls = async(urlIds:any[]) =>{
     return data;
 }
 
-export const storeClicks = async(urlId:string | number, originalUrl:string)=>{
+export const storeClicks = async(urlId:number|string, originalUrl:string)=>{
     try{
         const response = await fetch("https://ipapi.co/json");
-        const {country_name:country, city} = await response.json();
+        const {country_name:country, city,latitude,longitude} = await response.json();
+        
         await supabase.from("clicks").insert({
             url_id:urlId,
             country,
-            city
+            city,
+            latitude,
+            longitude
         })
         window.location.href = originalUrl;
-
     }catch(error){
         throw new Error("Error");
     }

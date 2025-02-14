@@ -26,8 +26,8 @@ export const LinkCard = ({urlDetails, fetchUrls}:any)=>{
         fetchUrls();
     }
 
-    return <div onClick={()=>navigate(`/link/${id}`)} className="flex flex-row items-center border-solid border-gray-800 p-2 md:p-5 rounded-md border-2 mt-4 justify-between cursor-pointer">
-        <div className="flex flex-col items-start gap-1">
+    return <div className="flex flex-row items-center border-solid border-gray-800 p-2 md:p-5 rounded-md border-2 mt-4 justify-between cursor-pointer">
+        <div onClick={()=>navigate(`/link/${id}`)} className="flex flex-col items-start gap-1">
             <h1 className="font-bold md:text-3xl text-xl">{title}</h1>
             <p className="text-lg md:text-2xl font-semibold text-blue-600">https://trimly-three.vercel.app/{custom_url !== null ? custom_url : short_url}</p>
             <p className="italic text-sm text-gray-500">{original_url}</p>

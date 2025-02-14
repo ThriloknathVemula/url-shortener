@@ -31,7 +31,7 @@ export const RedirectLink = ()=>{
     useEffect(()=>{
         const storeClicksFunc = async()=>{
             if(!loadingLongUrl && longUrlDetails && id !== undefined){
-                await storeClicks(id, longUrlDetails.original_url)
+                await storeClicks(longUrlDetails.id, longUrlDetails.original_url)
             }
         }
 
