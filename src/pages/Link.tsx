@@ -46,7 +46,7 @@ export const Link = ()=>{
     },[])
 
     const onClickCopy = ()=>{
-        navigator.clipboard.writeText(`https://trimly/${urlData.custom_url !== null ? urlData?.custom_url : urlData?.short_url}`)
+        navigator.clipboard.writeText(`https://trimly-three.vercel.app/${urlData.custom_url !== null ? urlData?.custom_url : urlData?.short_url}`)
         toast({
             title:"Link copied to clipboard"
         })
@@ -68,7 +68,7 @@ export const Link = ()=>{
             <div className="flex flex-row items-center border-solid border-gray-800 p-2 md:p-5 rounded-md border-2 mt-4 justify-between">
             <div className="flex flex-col items-start gap-1">
                 <h1 className="font-bold md:text-3xl text-xl">{urlData?.title}</h1>
-                <p className="text-lg md:text-2xl font-semibold text-blue-600">https://trimly/{urlData?.custom_url !== null ? urlData?.custom_url : urlData?.short_url}</p>
+                <p className="text-lg md:text-2xl font-semibold text-blue-600">https://trimly-three.vercel.app/{urlData?.custom_url !== null ? urlData?.custom_url : urlData?.short_url}</p>
                 <p className="italic text-sm text-gray-500">{urlData?.original_url}</p>
                 <p className="mt-2 text-sm text-gray-200">{new Date(urlData.created_at).toLocaleString()}</p>
             </div>
