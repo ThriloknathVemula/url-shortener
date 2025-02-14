@@ -9,8 +9,7 @@ export const User = ()=>{
     if(user !== null && user !== undefined) {
         date = new Date(user?.created_at)
     } 
-    const registeredAt = format(date.toLocaleDateString(), "MMMM yyyy");
-    console.log(registeredAt)
+    const registeredAt = format(date, "MMMM yyyy");
     return <div className="flex flex-col justify-center items-center mt-12 md:mt-24">
         <h1 className="font-bold md:text-4xl mb-10 text-2xl">User Details</h1>
         <div className="p-10 rounded-md border-solid border-2 flex flex-col items-center shadow-lg">
