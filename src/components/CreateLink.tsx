@@ -15,7 +15,7 @@ import { createUrl } from "@/utils/urls"
 import * as Yup from 'yup'
 import { Error } from "./Error"
 import { PulseLoader } from "react-spinners"
-import { useFetch } from "@/hooks/useFetch"
+import { urlType } from "@/types/types"
   
 const initialState = {title:"",longUrl:"",customUrl:""}
 export const CreateLink = ()=>{
@@ -31,15 +31,18 @@ export const CreateLink = ()=>{
         longUrl:longLink ? longLink : ""
     });
 
-    const {data, error, loading, fn:fnCreateUrl} = useFetch(createUrl, {...formData, userId: user.id});
+    // const {data, error, loading, fn:fnCreateUrl} = useFetch(createUrl, {...formData, userId: user.id});
+    const [urlData, setUrlData] = useState<urlType[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const [errors, setErrors] = useState(initialState);
 
     useEffect(()=>{
-        if(error === null && data){
-            navigate(`/link/${data[0].id}`)
+        if(error === null && urlData){
+            navigate(`/link/${urlData[0].id}`)
         }
-    },[data,error])
+    },[urlData,error])
 
     const onFormDataChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         setFormData((prev)=>({
@@ -52,6 +55,7 @@ export const CreateLink = ()=>{
 
     const onClickCreateLink = async()=>{
         setErrors(initialState);
+        setLoading(true);
 
         try{
             const schema = Yup.object().shape({
@@ -61,7 +65,15 @@ export const CreateLink = ()=>{
             });
 
             await schema.validate(formData, {abortEarly: false});
-            await fnCreateUrl();
+            try{
+                if(user !== undefined && user !== null){
+                    const response = await createUrl({...formData, userId: user.id});
+                    setUrlData(response);
+                }
+            }catch(e:any){
+                setError(e.message);
+            }
+            setLoading(false);
             setFormData(initialState);
         }catch(error:any){
             const newErrors:any = {};
@@ -74,7 +86,7 @@ export const CreateLink = ()=>{
         }
     }
 
-    return <Dialog defaultOpen={longLink}
+    return <Dialog defaultOpen={longLink !== undefined && longLink !== null}
     onOpenChange={(res)=>{if(!res) setSearchParams({})}}>
     <DialogTrigger><Button>Create New Link</Button></DialogTrigger>
     <DialogContent>
@@ -96,7 +108,7 @@ export const CreateLink = ()=>{
          name="customUrl" 
          onChange={onFormDataChange} 
          value={formData.customUrl}/>
-         {error && <Error message={error.message}/>}
+         {error && <Error message={error}/>}
       </div>
       <DialogFooter className="justify-start">
           <Button disabled = {loading} type="submit" onClick={onClickCreateLink}>{loading ? <PulseLoader size={10}/> : "Trimlify"}</Button>

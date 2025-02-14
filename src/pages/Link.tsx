@@ -25,7 +25,7 @@ export const Link = ()=>{
 
     useEffect(()=>{
         const fetchUrls = async()=>{
-            if(id !== undefined && user.id !== undefined){
+            if(user !== null && user !== undefined && id !== undefined){
                 const response = await getUrl(id, user.id);
                 setUrlData(response);
                 setLoadingUrls(false);

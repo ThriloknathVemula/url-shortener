@@ -11,13 +11,13 @@ import { BarLoader } from "react-spinners";
 
 export const Header = ()=>{
     const navigate = useNavigate();
-    const {user,fetchUser} = urlState();
+    const {user,getUser} = urlState();
 
     const {loading, fn: fnLogout} = useFetch(logout);
 
     const handleLogout = ()=>{
       fnLogout().then(()=>navigate('/'))
-      fetchUser();
+      getUser();
     }
 
     return <> <div className="py-4 w-[screen] flex justify-between items-center mx-5">

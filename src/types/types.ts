@@ -14,4 +14,4 @@ export interface clicksType {
     country: string
 }
 
-export const initialUrlState = {title:"",original_url:"",created_at:new Date(), custom_url:"",short_url:""};
+export const initialUrlState = {id:"",title:"",original_url:"",created_at:new Date(), custom_url:"",short_url:""};
