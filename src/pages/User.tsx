@@ -5,7 +5,8 @@ import {format} from 'date-fns'
 
 export const User = ()=>{
     const {user} = urlState();
-    const registeredAt = format(new Date(user?.created_at).toLocaleDateString(), "MMMM yyyy");
+    const date = user?.created_at
+    const registeredAt = date !== undefined ? format(new Date(date).toLocaleDateString(), "MMMM yyyy") : "";
     return <div className="flex flex-col justify-center items-center mt-12 md:mt-24">
         <h1 className="font-bold md:text-4xl mb-10 text-2xl">User Details</h1>
         <div className="p-10 rounded-md border-solid border-2 flex flex-col items-center shadow-lg">

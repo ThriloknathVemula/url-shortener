@@ -15,11 +15,6 @@ export const createUrl = async(props:{title:string,longUrl:string,customUrl:stri
     const {title,longUrl,customUrl,userId} = props;
     const shortUrl = Math.random().toString(36).substring(2,8);
 
-    console.log(title);
-    console.log(longUrl);
-    console.log(customUrl);
-    console.log(userId)
-
     const {data,error} = await supabase.from("urls").insert([{
         title,
         original_url: longUrl,
@@ -60,7 +55,7 @@ export const getLongUrl = async(shortLink:string)=>{
     return data;
 }
 
-export const getUrl = async({id,userId}:{id:any,userId:any})=>{
+export const getUrl = async(id:string|number,userId:string | number)=>{
     const {data, error} = await supabase.from("urls").select("*").eq("id",id).eq("user_id",userId).single()
 
     if(error){

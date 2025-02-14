@@ -29,13 +29,13 @@ export const Login = ()=>{
     const [searchParams] = useSearchParams();
     const longLink =searchParams.get("createNew");
 
-    const {fetchUser} = urlState();
+    const {getUser} = urlState();
 
     useEffect(()=>{
       if(error===null && data){
         console.log(data);
         navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`)
-        fetchUser();
+        getUser();
       }
     },[data,error])
 

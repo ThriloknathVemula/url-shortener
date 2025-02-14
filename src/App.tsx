@@ -39,6 +39,10 @@ const router = createBrowserRouter([{
       element: <RedirectLink/>
     },
     {
+      path:'/not-found',
+      element: <NotFound/>
+    },
+    {
       path:'*',
       element: <NotFound/>
     }

@@ -10,7 +10,7 @@ export const getClicksForUrls = async(urlIds:any[]) =>{
     return data;
 }
 
-export const storeClicks = async(urlId:any)=>{
+export const storeClicks = async(urlId:string | number, originalUrl:string)=>{
     try{
         const response = await fetch("https://ipapi.co/json");
         const {country_name:country, city} = await response.json();
@@ -19,6 +19,7 @@ export const storeClicks = async(urlId:any)=>{
             country,
             city
         })
+        window.location.href = originalUrl;
 
     }catch(error){
         throw new Error("Error");

@@ -1,33 +1,49 @@
-import { useFetch } from "@/hooks/useFetch";
+import { initialUrlState, urlType } from "@/types/types";
 import { storeClicks } from "@/utils/clicks";
 import { getLongUrl } from "@/utils/urls";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom"
 import { BarLoader } from "react-spinners";
 
 export const RedirectLink = ()=>{
     const {id} = useParams();
-    const {loading,data, fn:fnGetLongUrl} = useFetch(getLongUrl,id);
-
+    const navigate = useNavigate();
+    const [loadingLongUrl, setLoadingLongUrl] = useState(true);
+    const [longUrlDetails, setLongUrlDetails] = useState<urlType>(initialUrlState);
+    
     useEffect(()=>{
-        fnGetLongUrl();
+        const getUrlDetails = async()=>{
+            if(id !== undefined){
+                try{
+                    const response = await getLongUrl(id);
+                    setLongUrlDetails(response);
+                }catch(e){
+                    navigate('/not-found')
+                }
+            }
+            setLoadingLongUrl(false);
+        }
+
+        getUrlDetails();
     },[])
 
-    const {fn:fnStoreClick} = useFetch(storeClicks, data?.id);
 
     useEffect(()=>{
-        if(!loading && data){
-            fnStoreClick();
-            window.location.href = data.original_url;
+        const storeClicksFunc = async()=>{
+            if(!loadingLongUrl && longUrlDetails && id !== undefined){
+                await storeClicks(id, longUrlDetails.original_url)
+            }
         }
-    },[loading,data])
 
-    {if(loading) return <div>
+        storeClicksFunc();
+    },[loadingLongUrl,longUrlDetails])
+
+    {if(loadingLongUrl) return <div>
         <BarLoader width={"100%"} color="white"/>
         Redirecting...    
     </div>}
 
-    if(!loading && data === null){
+    if(!loadingLongUrl && longUrlDetails === initialUrlState){
         return <div>
             Error redirecting.....
         </div>

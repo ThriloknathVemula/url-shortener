@@ -23,7 +23,7 @@ export const Register = ()=>{
     const [errors,setErrors] = useState(initialState);
 
     const {data,error,loading,fn:fnSignup} = useFetch(signup,credentials);
-    const {fetchUser} = urlState();
+    const {getUser} = urlState();
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -33,7 +33,7 @@ export const Register = ()=>{
         if(data && error === null){
             console.log(data);
             navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`)
-            fetchUser();
+            getUser();
         }
     },[data,loading,error])
 
